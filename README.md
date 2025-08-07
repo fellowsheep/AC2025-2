@@ -2,7 +2,7 @@
 
 Repositório de exemplos de códigos criado para a Atividade Acadêmica Animação Computadorizada do curso de graduação em Jogos Digitais da Unisinos. 
 
-👩🏻‍🏫 Profa. Rossana B Queiroz
+👩🏻‍🏫 Profa. Dra. Rossana B Queiroz
 
 ## 📂 Estrutura do Repositório
 
