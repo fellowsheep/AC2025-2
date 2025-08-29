@@ -1,0 +1,89 @@
+[gd_scene load_steps=16 format=3 uid="uid://bplfuvjs5k6ia"]
+
+[ext_resource type="Script" uid="uid://bljom8s4sapsv" path="res://scripts/Main.cs" id="1_7mycd"]
+[ext_resource type="ArrayMesh" uid="uid://b5j4668e7noet" path="res://assets/rato.res" id="2_7mycd"]
+[ext_resource type="Texture2D" uid="uid://cvf6pnyysmerp" path="res://assets/sky_23_2k/sky_23_2k.png" id="3_272bh"]
+[ext_resource type="Script" uid="uid://f61agk5y8xqi" path="res://scripts/LinearCurve.cs" id="4_5vw27"]
+[ext_resource type="Script" uid="uid://sd57q40217mu" path="res://scripts/Rato.cs" id="4_kek77"]
+[ext_resource type="PackedScene" uid="uid://6ekxaewn2jxc" path="res://prefabs/control_point.tscn" id="5_kek77"]
+[ext_resource type="PackedScene" uid="uid://b1ddjujaa0htv" path="res://prefabs/curve_point.tscn" id="7_272bh"]
+[ext_resource type="Material" uid="uid://dq1pa7q0n4bd7" path="res://assets/GrassMaterial.tres" id="7_kek77"]
+[ext_resource type="Script" uid="uid://bcx2tjl0vl7ry" path="res://scripts/CatmullRomCurve.cs" id="9_kek77"]
+
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_kggmv"]
+panorama = ExtResource("3_272bh")
+
+[sub_resource type="Sky" id="Sky_naxnf"]
+sky_material = SubResource("PanoramaSkyMaterial_kggmv")
+
+[sub_resource type="Environment" id="Environment_62gkr"]
+background_mode = 2
+sky = SubResource("Sky_naxnf")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_d5740"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_44cg6"]
+albedo_color = Color(0.654902, 0.00392157, 0.156863, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_wc1qo"]
+
+[node name="Main" type="Node3D"]
+script = ExtResource("1_7mycd")
+
+[node name="ControlPoints" type="Node3D" parent="."]
+
+[node name="C0" parent="ControlPoints" instance=ExtResource("5_kek77")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 0, -8)
+
+[node name="C1" parent="ControlPoints" instance=ExtResource("5_kek77")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0, 4)
+
+[node name="C2" parent="ControlPoints" instance=ExtResource("5_kek77")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, -4)
+
+[node name="C3" parent="ControlPoints" instance=ExtResource("5_kek77")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0, 8)
+
+[node name="LinearCurve" type="Node3D" parent="."]
+script = ExtResource("4_5vw27")
+CurvePointScene = ExtResource("7_272bh")
+
+[node name="CatmullRomCurve" type="Node3D" parent="."]
+visible = false
+script = ExtResource("9_kek77")
+CurvePointScene = ExtResource("7_272bh")
+
+[node name="Scenery" type="Node3D" parent="."]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Scenery"]
+transform = Transform3D(1, 0, 0, 0, 0.930827, 0.365461, 0, -0.365461, 0.930827, 0, 32.1867, 23.5991)
+light_energy = 0.8
+
+[node name="Camera3D" type="Camera3D" parent="Scenery"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 25, 1.31)
+fov = 45.0
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="Scenery"]
+environment = SubResource("Environment_62gkr")
+
+[node name="Objects" type="Node3D" parent="."]
+
+[node name="Chao" type="MeshInstance3D" parent="Objects"]
+transform = Transform3D(200, 0, 0, 0, 200, 0, 0, 0, 200, 0, 0, 0)
+material_override = ExtResource("7_kek77")
+mesh = SubResource("PlaneMesh_d5740")
+skeleton = NodePath("../..")
+
+[node name="Queijo" type="MeshInstance3D" parent="Objects"]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0.000815392, -2.38419e-07, 0.011673)
+visible = false
+material_override = SubResource("StandardMaterial3D_44cg6")
+mesh = SubResource("SphereMesh_wc1qo")
+skeleton = NodePath("../..")
+
+[node name="Rato" type="MeshInstance3D" parent="Objects"]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -11.023, 0.0828437, -10.355)
+mesh = ExtResource("2_7mycd")
+skeleton = NodePath("../..")
+script = ExtResource("4_kek77")
+CurveNodePath = NodePath("../../LinearCurve")
