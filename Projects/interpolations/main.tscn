@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://6ekxaewn2jxc" path="res://prefabs/control_point.tscn" id="5_kek77"]
 [ext_resource type="PackedScene" uid="uid://b1ddjujaa0htv" path="res://prefabs/curve_point.tscn" id="7_272bh"]
 [ext_resource type="Material" uid="uid://dq1pa7q0n4bd7" path="res://assets/GrassMaterial.tres" id="7_kek77"]
+[ext_resource type="ArrayMesh" uid="uid://df6j0iycqwtxi" path="res://assets/queijo.res" id="8_4c57u"]
 [ext_resource type="Script" uid="uid://bcx2tjl0vl7ry" path="res://scripts/CatmullRomCurve.cs" id="9_kek77"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_kggmv"]
@@ -22,10 +23,9 @@ sky = SubResource("Sky_naxnf")
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_d5740"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_44cg6"]
-albedo_color = Color(0.654902, 0.00392157, 0.156863, 1)
-
-[sub_resource type="SphereMesh" id="SphereMesh_wc1qo"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_efxa6"]
+albedo_color = Color(1, 0.866667, 0, 1)
+roughness = 0.88
 
 [node name="Main" type="Node3D"]
 script = ExtResource("1_7mycd")
@@ -57,7 +57,8 @@ CurvePointScene = ExtResource("7_272bh")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="Scenery"]
 transform = Transform3D(1, 0, 0, 0, 0.930827, 0.365461, 0, -0.365461, 0.930827, 0, 32.1867, 23.5991)
-light_energy = 0.8
+light_energy = 0.5
+shadow_enabled = true
 
 [node name="Camera3D" type="Camera3D" parent="Scenery"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 25, 1.31)
@@ -75,10 +76,9 @@ mesh = SubResource("PlaneMesh_d5740")
 skeleton = NodePath("../..")
 
 [node name="Queijo" type="MeshInstance3D" parent="Objects"]
-transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0.000815392, -2.38419e-07, 0.011673)
-visible = false
-material_override = SubResource("StandardMaterial3D_44cg6")
-mesh = SubResource("SphereMesh_wc1qo")
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 8.68139, -2.38419e-07, 10.1235)
+material_override = SubResource("StandardMaterial3D_efxa6")
+mesh = ExtResource("8_4c57u")
 skeleton = NodePath("../..")
 
 [node name="Rato" type="MeshInstance3D" parent="Objects"]
